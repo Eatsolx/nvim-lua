@@ -6,7 +6,7 @@ end
 
 vim.opt.completeopt = "menuone,noselect"
 
-cmp.setup {
+local default = {
    snippet = {
       expand = function(args)
          require("luasnip").lsp_expand(args.body)
@@ -64,3 +64,13 @@ cmp.setup {
       { name = "path" },
    },
 }
+
+local M = {}
+M.setup = function(override_flag)
+   if override_flag then
+      default = require("core.utils").tbl_override_req("nvim_cmp", default)
+   end
+   cmp.setup(default)
+end
+
+return M

@@ -45,7 +45,7 @@ M.options = {
 M.ui = {
    hl_override = "", -- path of your file that contains highlights
    italic_comments = false,
-   theme = "onedark", -- default theme
+   theme = "tokyonight", -- default theme
 
    -- Change terminal bg to nvim theme's bg color so it'll match well
    -- For Ex : if you have onedark set in nvchad, set onedark's bg color on your terminal
@@ -61,30 +61,33 @@ M.plugins = {
       bufferline = true, -- manage and preview opened buffers
       colorizer = false, -- color RGB, HEX, CSS, NAME color codes
       comment = true, -- easily (un)comment code, language aware
-      dashboard = false,
+      dashboard = true,
       better_escape = true, -- map to <ESC> with no lag
       feline = true, -- statusline
       gitsigns = true,
       lspsignature = true, -- lsp enhancements
+      telescope_media = false,
       vim_matchup = true, -- improved matchit
       cmp = true,
       nvimtree = true,
       autopairs = true,
    },
    options = {
-      packer = {
-         init_file = "plugins.packerInit",
-      },
       autopairs = { loadAfter = "nvim-cmp" },
-      cmp = {
-         lazy_load = true,
-      },
       lspconfig = {
          setup_lspconf = "", -- path of file containing setups of different lsps
       },
       nvimtree = {
+         enable_git = 0,
          -- packerCompile required after changing lazy_load
          lazy_load = true,
+
+         ui = {
+            allow_resize = true,
+            side = "left",
+            width = 25,
+            hide_root_folder = true,
+         },
       },
       luasnip = {
          snippet_path = {},
@@ -166,7 +169,7 @@ M.mappings = {
 }
 
 -- plugins related mappings
--- To disable a mapping, equate the variable to "" or false or nil in chadrc
+
 M.mappings.plugins = {
    bufferline = {
       next_buffer = "<TAB>",
@@ -224,6 +227,10 @@ M.mappings.plugins = {
       live_grep = "<leader>fw",
       oldfiles = "<leader>fo",
       themes = "<leader>th", -- NvChad theme picker
+
+      telescope_media = {
+         media_files = "<leader>fp",
+      },
    },
 }
 
