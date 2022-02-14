@@ -280,4 +280,35 @@ M.tbl_override_req = function(name, default_table)
    return vim.tbl_deep_extend("force", default_table, override)
 end
 
+--provide labels to plugins instead of integers
+M.label_plugins = function(plugins)
+   plugins_labeled = {}
+   for _, plugin in ipairs(plugins) do
+      plugins_labeled[plugin[1]] = plugin
+   end
+   return plugins_labeled
+end
+
+-- remove plugins specified by user from the plugins table
+M.remove_default_plugins = function(plugins)
+   local removals = require("core.utils").load_config().plugins.default_plugin_remove or {}
+   if not vim.tbl_isempty(removals) then
+      for _, plugin in pairs(removals) do
+         plugins[plugin] = nil
+      end
+   end
+   return plugins
+end
+
+-- append user plugins to default plugins
+M.add_user_plugins = function(plugins)
+   local user_Plugins = require("core.utils").load_config().plugins.install or {}
+   if not vim.tbl_isempty(user_Plugins) then
+      for _, v in pairs(user_Plugins) do
+         plugins[v[1]] = v
+      end
+   end
+   return plugins
+end
+
 return M

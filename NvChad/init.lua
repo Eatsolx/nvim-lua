@@ -1,3 +1,9 @@
+local present, impatient = pcall(require, "impatient")
+
+if present then
+   impatient.enable_profile()
+end
+
 local core_modules = {
    "core.options",
    "core.autocmds",
@@ -14,8 +20,12 @@ end
 -- non plugin mappings
 require("core.mappings").misc()
 
--- try to call custom init
-local ok, err = pcall(require, "custom")
-if not ok then
-   vim.notify("Error loading custom/init.lua\n\n" .. err)
+-- check if custom init.lua file exists
+if vim.fn.filereadable(vim.fn.stdpath "config" .. "/lua/custom/init.lua") == 1 then
+   -- try to call custom init, if not successful, show error
+   local ok, err = pcall(require, "custom")
+   if not ok then
+      vim.notify("Error loading custom/init.lua\n\n" .. err)
+   end
+   return
 end

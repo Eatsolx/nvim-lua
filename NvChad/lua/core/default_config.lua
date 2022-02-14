@@ -26,6 +26,7 @@ M.options = {
    updatetime = 250,
    undofile = true,
    fillchars = { eob = " " },
+   shadafile = vim.opt.shadafile,
 
    -- NvChad options
    nvChad = {
@@ -106,6 +107,8 @@ M.plugins = {
       esc_insertmode_timeout = 300,
    },
    default_plugin_config_replace = {},
+   default_plugin_remove = {},
+   install = nil,
 }
 
 -- Don't use a single keymap twice
@@ -120,7 +123,9 @@ M.mappings = {
       cheatsheet = "<leader>ch",
       close_buffer = "<leader>x",
       copy_whole_file = "<C-a>", -- copy all contents of current buffer
+      copy_to_system_clipboard = "<C-c>", -- copy selected text (visual mode) or curent line (normal)
       line_number_toggle = "<leader>n", -- toggle line number
+      relative_line_number_toggle = "<leader>rn",
       update_nvchad = "<leader>uu",
       new_buffer = "<S-t>",
       new_tab = "<C-t>b",
@@ -199,7 +204,7 @@ M.mappings.plugins = {
       remove_workspace_folder = "<leader>wr",
       list_workspace_folders = "<leader>wl",
       type_definition = "<leader>D",
-      rename = "<leader>rn",
+      rename = "<leader>ra",
       code_action = "<leader>ca",
       references = "gr",
       float_diagnostics = "ge",

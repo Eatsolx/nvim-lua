@@ -1,118 +1,75 @@
-local customPlugins = require "core.customPlugins"
+-------------------按键映射---------------------
+local map = require("core.utils").map
 
-customPlugins.add(function(use)
-  -- 平滑滚动
-  use {
-    "karb94/neoscroll.nvim",
-     opt = true,
-     config = function()
-        require("neoscroll").setup()
-     end,
+-- 设置leader键
+vim.g.mapleader = " "
 
-     -- lazy loading
-     setup = function()
-       require("core.utils").packer_lazy_load "neoscroll.nvim"
-     end,
-  }
+-- Ctrl+q退出
+map('n', '<C-q>', ':q<CR>')
 
-  -- 自动打开上次浏览位置
-  use {
-    "farmergreg/vim-lastplace"
-  }
+-- 快速分屏
+map('n', 'sl', ':set splitright<CR>:vsplit<CR>')
+map('n', 'sh', ':set nosplitright<CR>:vsplit<CR>')
+map('n', 'sj', ':set splitright<CR>:split<CR>')
+map('n', 'sk', ':set nosplitright<CR>:split<CR>')
 
-  -- 历史修改记录
-  use {
-        "mbbill/undotree",
-        opt = true,
-        cmd = "UndotreeToggle",
-  }
+-- 在分屏间移动
+map('n', '<C-h>', '<C-w>h')
+map('n', '<C-j>', '<C-w>j')
+map('n', '<C-k>', '<C-w>k')
+map('n', '<C-l>', '<C-w>l')
 
-  -- 多光标
-  use {
-    "mg979/vim-visual-multi",
-    keys = "<C-n>",
-  }
+-- 改变窗口大小
+map('n', '<up>', ':res +5<CR>')
+map('n', '<down>', ':res -5<CR>')
+map('n', '<left>', ':vertical resize-5<CR>')
+map('n', '<right>', ':vertical resize+5<CR>')
 
-  -- 增删改引号
-  use {
-    "tpope/vim-surround",
-    keys = {"c", "d", "S"},
-  }
+-- 历史修改记录
+map('n', '<A-u>', ':UndotreeToggle<CR>')
 
-  -- 快速选中
-  use {
-    "gcmt/wildfire.vim",
-    keys = "<CR>",
-  }
+-- 文件树
+map('n', '<A-t>', ':NvimTreeToggle<CR>')
 
-  -- 代码格式化
-  -- use {
-  --     "jose-elias-alvarez/null-ls.nvim",
-  --     after = "nvim-lspconfig",
-  --     config = function()
-  --        require("custom.configs.null-ls").setup()
-  --     end,
-  --  }
-  use {
-    "Chiel92/vim-autoformat",
-    cmd = "Autoformat",
-  }
-  -- use {
-  --   "mhartington/formatter.nvim",
-  --   opt = true,
-  --   ft = "cpp",
-  --   config = function ()
-  --     require("custom.configs.format")
-  --   end,
-  -- }
+-- 格式化
+map('n', '<leader>fm', ':Autoformat<CR>')
 
-  -- 快速分析启动时间
-  use {
-    "dstein64/vim-startuptime",
-    cmd = "StartupTime",
-  }
+-- 保存时用suda写入
+map('n', '<A-s>', ':SudaWrite<CR>')
 
-  -- 编辑只读文件
-  use {
-    "lambdalisue/suda.vim",
-    cmd = "SudaWrite",
-  }
+-- Y复制到系统剪切板
+map('v', 'Y', [["+y]])
 
-  -- 现代任务系统
-  use {
-    "skywind3000/asynctasks.vim",
-    requires = "skywind3000/asyncrun.vim",
-    cmd = {"AsyncTask", "AsyncTaskEdit"},
-  }
+-- 一键编译/运行/编译运行
+map('n', '<F8>', ':w<CR> | :AsyncTask file-build<CR>')
+map('n', '<F9>', ':w<CR> | :AsyncTask file-run<CR>')
+map('n', '<F10>', ':w<CR> | :AsyncTask file-build<CR> | :AsyncTask file-run<CR>')
 
-  -- 函数列表
-  use {
-    "liuchengxu/vista.vim",
-    cmd = "Vista",
-  }
+-- 开启/关闭函数列表
+map('n', '<A-f>', ':Vista<CR>')
 
-  -- markdown预览
-  use {
-    "iamcco/markdown-preview.nvim",
-    run = "cd app && yarn install",
-    ft = "markdown",
-  }
+-- 创建表格
+map('n', '<leader>tm', ':TableModeToggle<CR>')
 
-  -- 制作markdown表格
-  use {
-    "dhruvasagar/vim-table-mode",
-    cmd = "TableModeToggle",
-  }
+-- markdown预览
+map('n', '<A-r>', ':MarkdownPreviewToggle<CR>')
 
-  -- 自动切换输入法
-  use {
-    "lilydjwg/fcitx.vim",
-    keys = {'i', 'a', 'I', 'A', 'c', 'o', 'O'},
-  }
+-------------------按键映射---------------------
 
-end)
+-------------------杂项配置---------------------
+-- 设置屏幕中间竖条
+-- vim.o.colorcolumn = "130"
 
--- 添加一些init配置
-require "custom.custom_init"
--- 按键映射
-require "custom.custom_mappings"
+-- 禁用多光标警告
+vim.g.VM_show_warnings = 0
+
+-- 设置asynctasks窗口排版
+vim.g.asynctasks_term_pos = 'bottom'
+vim.g.asynctasks_term_rows = 15
+
+-- vim-table-mode更改为markdown语法
+vim.g.table_mode_corner='|'
+
+-- 自动切换输入法配置
+vim.o.ttimeoutlen=0
+-------------------杂项配置---------------------

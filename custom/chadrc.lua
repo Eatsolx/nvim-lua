@@ -51,7 +51,11 @@ M.ui = {
 
 ---- PLUGIN OPTIONS ----
 
+-- Install plugins
+local userPlugins = require "custom.plugins" -- path to table
+
 M.plugins = {
+   install = userPlugins,
    -- enable/disable plugins (false for disable)
    status = {
       blankline = true, -- indentline stuff
@@ -72,7 +76,7 @@ M.plugins = {
    options = {
       autopairs = { loadAfter = "nvim-cmp" },
       lspconfig = {
-         setup_lspconf = "custom.configs.lspconfig",
+         setup_lspconf = "custom.plugins.lspconfig",
       },
       nvimtree = {
          enable_git = 0,
@@ -106,7 +110,7 @@ M.plugins = {
       esc_insertmode_timeout = 300,
    },
    default_plugin_config_replace = {
-      dashboard = "custom.configs.dashboard",
+      dashboard = "custom.plugins.dashboard",
    },
 }
 
