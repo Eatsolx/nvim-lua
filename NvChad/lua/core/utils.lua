@@ -282,7 +282,7 @@ end
 
 --provide labels to plugins instead of integers
 M.label_plugins = function(plugins)
-   plugins_labeled = {}
+   local plugins_labeled = {}
    for _, plugin in ipairs(plugins) do
       plugins_labeled[plugin[1]] = plugin
    end
@@ -303,6 +303,9 @@ end
 -- append user plugins to default plugins
 M.add_user_plugins = function(plugins)
    local user_Plugins = require("core.utils").load_config().plugins.install or {}
+   if type(user_Plugins) == "string"
+      then user_Plugins=require(user_Plugins)
+   end
    if not vim.tbl_isempty(user_Plugins) then
       for _, v in pairs(user_Plugins) do
          plugins[v[1]] = v

@@ -26,3 +26,4 @@ M.setup_lsp = function(attach, capabilities)
 end
 
 return M
+

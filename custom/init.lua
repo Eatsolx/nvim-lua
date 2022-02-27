@@ -1,9 +1,6 @@
 -------------------按键映射---------------------
 local map = require("core.utils").map
 
--- 设置leader键
-vim.g.mapleader = " "
-
 -- Ctrl+q退出
 map('n', '<C-q>', ':q<CR>')
 

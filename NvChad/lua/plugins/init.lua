@@ -67,6 +67,7 @@ local plugins = {
       "nvim-treesitter/nvim-treesitter",
       event = "BufRead",
       config = override_req("nvim_treesitter", "plugins.configs.treesitter", "setup"),
+      run = ":TSUpdate",
    },
 
    -- git stuff
@@ -182,12 +183,9 @@ local plugins = {
    },
 
    {
-      "glepnir/dashboard-nvim",
-      disable = not plugin_settings.status.dashboard,
-      config = override_req("dashboard", "plugins.configs.dashboard"),
-      setup = function()
-         require("core.mappings").dashboard()
-      end,
+      disable = not plugin_settings.status.alpha,
+      "goolord/alpha-nvim",
+      config = override_req("alpha", "plugins.configs.alpha"),
    },
 
    {
@@ -233,7 +231,7 @@ plugins = require("core.utils").remove_default_plugins(plugins)
 plugins = require("core.utils").add_user_plugins(plugins)
 
 return packer.startup(function(use)
-   for _, v in pairs(plugins_labeled) do
+   for _, v in pairs(plugins) do
       use(v)
    end
 end)

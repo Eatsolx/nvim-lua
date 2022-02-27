@@ -1,3 +1,6 @@
+-- IMPORTANT NOTE : This is default config, so dont change anything here.
+-- use custom/chadrc.lua instead
+
 local M = {}
 
 M.options = {
@@ -14,7 +17,7 @@ M.options = {
    mouse = "a",
    number = true,
    numberwidth = 2,
-   relativenumber = true,
+   relativenumber = false,
    expandtab = true,
    shiftwidth = 2,
    smartindent = true,
@@ -23,6 +26,7 @@ M.options = {
    updatetime = 250,
    undofile = true,
    fillchars = { eob = " " },
+   shadafile = vim.opt.shadafile,
 
    -- NvChad options
    nvChad = {
@@ -30,6 +34,7 @@ M.options = {
       copy_del = true, -- copy deleted text ( dd key ), visual and normal mode
       insert_nav = true, -- navigation in insertmode
       window_nav = true,
+      terminal_numbers = false,
 
       -- updater
       update_url = "https://github.com/NvChad/NvChad",
@@ -42,7 +47,7 @@ M.options = {
 M.ui = {
    hl_override = "", -- path of your file that contains highlights
    italic_comments = false,
-   theme = "tokyonight",
+   theme = "tokyonight", -- default theme
 
    -- Change terminal bg to nvim theme's bg color so it'll match well
    -- For Ex : if you have onedark set in nvchad, set onedark's bg color on your terminal
@@ -62,33 +67,30 @@ M.plugins = {
       bufferline = true, -- manage and preview opened buffers
       colorizer = false, -- color RGB, HEX, CSS, NAME color codes
       comment = true, -- easily (un)comment code, language aware
-      dashboard = true,
+      alpha = true, -- dashboard
       better_escape = true, -- map to <ESC> with no lag
       feline = true, -- statusline
       gitsigns = true,
       lspsignature = true, -- lsp enhancements
-      telescope_media = false,
       vim_matchup = true, -- improved matchit
       cmp = true,
       nvimtree = true,
       autopairs = true,
    },
    options = {
+      packer = {
+         init_file = "plugins.packerInit",
+      },
       autopairs = { loadAfter = "nvim-cmp" },
+      cmp = {
+         lazy_load = true,
+      },
       lspconfig = {
          setup_lspconf = "custom.plugins.lspconfig",
       },
       nvimtree = {
-         enable_git = 0,
          -- packerCompile required after changing lazy_load
          lazy_load = true,
-
-         ui = {
-            allow_resize = true,
-            side = "left",
-            width = 25,
-            hide_root_folder = true,
-         },
       },
       luasnip = {
          snippet_path = {},
@@ -97,9 +99,9 @@ M.plugins = {
          -- hide, show on specific filetypes
          hidden = {
             "help",
-            "dashboard",
             "NvimTree",
             "terminal",
+            "alpha",
          },
          shown = {},
 
@@ -110,8 +112,9 @@ M.plugins = {
       esc_insertmode_timeout = 300,
    },
    default_plugin_config_replace = {
-      dashboard = "custom.plugins.dashboard",
+     dashboard = "custom.plugins.dashboard",
    },
+   default_plugin_remove = {},
 }
 
 -- Don't use a single keymap twice
@@ -126,7 +129,9 @@ M.mappings = {
       cheatsheet = "<leader>ch",
       close_buffer = "<leader>x",
       copy_whole_file = "<C-a>", -- copy all contents of current buffer
+      copy_to_system_clipboard = "<C-c>", -- copy selected text (visual mode) or curent line (normal)
       line_number_toggle = "<leader>n", -- toggle line number
+      relative_line_number_toggle = "<leader>rn",
       update_nvchad = "<leader>uu",
       new_buffer = "<S-t>",
       new_tab = "<C-t>b",
@@ -172,7 +177,7 @@ M.mappings = {
 }
 
 -- plugins related mappings
-
+-- To disable a mapping, equate the variable to "" or false or nil in chadrc
 M.mappings.plugins = {
    bufferline = {
       next_buffer = "<TAB>",
@@ -180,14 +185,6 @@ M.mappings.plugins = {
    },
    comment = {
       toggle = "<leader>/",
-   },
-
-   dashboard = {
-      bookmarks = "<leader>bm",
-      new_file = "<leader>fn", -- basically create a new buffer
-      open = "<leader>db", -- open dashboard
-      session_load = "<leader>l",
-      session_save = "<leader>s",
    },
 
    -- map to <ESC> with no lag
@@ -205,7 +202,7 @@ M.mappings.plugins = {
       remove_workspace_folder = "<leader>wr",
       list_workspace_folders = "<leader>wl",
       type_definition = "<leader>D",
-      rename = "<leader>rn",
+      rename = "<leader>ra",
       code_action = "<leader>ca",
       references = "gr",
       float_diagnostics = "ge",
@@ -230,10 +227,6 @@ M.mappings.plugins = {
       live_grep = "<leader>fw",
       oldfiles = "<leader>fo",
       themes = "<leader>th", -- NvChad theme picker
-
-      telescope_media = {
-         media_files = "<leader>fp",
-      },
    },
 }
 
