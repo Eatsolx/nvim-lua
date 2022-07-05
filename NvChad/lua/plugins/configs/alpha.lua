@@ -4,6 +4,8 @@ if not present then
    return
 end
 
+require("base46").load_highlight "alpha"
+
 local function button(sc, txt, keybind)
    local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
 
@@ -32,9 +34,9 @@ local function button(sc, txt, keybind)
    }
 end
 
-local default = {}
+local options = {}
 
-default.ascii = {
+local ascii = {
    "   ⣴⣶⣤⡤⠦⣤⣀⣤⠆     ⣈⣭⣿⣶⣿⣦⣼⣆          ",
    "    ⠉⠻⢿⣿⠿⣿⣿⣶⣦⠤⠄⡠⢾⣿⣿⡿⠋⠉⠉⠻⣿⣿⡛⣦       ",
    "          ⠈⢿⣿⣟⠦ ⣾⣿⣿⣷    ⠻⠿⢿⣿⣧⣄     ",
@@ -48,16 +50,16 @@ default.ascii = {
    "       ⠻⣿⣿⣿⣿⣶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⡟⢀⣀⣤⣾⡿⠃     ",
 }
 
-default.header = {
+options.header = {
    type = "text",
-   val = default.ascii,
+   val = ascii,
    opts = {
       position = "center",
       hl = "AlphaHeader",
    },
 }
 
-default.buttons = {
+options.buttons = {
    type = "group",
    val = {
       button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
@@ -72,21 +74,19 @@ default.buttons = {
    },
 }
 
-local M = {}
+options = require("core.utils").load_override(options, "goolord/alpha-nvim")
 
-M.setup = function(override_flag)
-   if override_flag then
-      default = require("core.utils").tbl_override_req("alpha", default)
-   end
-   alpha.setup {
-      layout = {
-         { type = "padding", val = 9 },
-         default.header,
-         { type = "padding", val = 2 },
-         default.buttons,
-      },
-      opts = {},
-   }
-end
+-- dynamic header padding
+local fn = vim.fn
+local marginTopPercent = 0.3
+local headerPadding = fn.max { 2, fn.floor(fn.winheight(0) * marginTopPercent) }
 
-return M
+alpha.setup {
+   layout = {
+      { type = "padding", val = headerPadding },
+      options.header,
+      { type = "padding", val = 2 },
+      options.buttons,
+   },
+   opts = {},
+}

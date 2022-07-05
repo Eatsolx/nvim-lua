@@ -4,25 +4,51 @@ if not present then
    return
 end
 
+require("base46").load_highlight "cmp"
+
 vim.opt.completeopt = "menuone,noselect"
 
-local default = {
+local function border(hl_name)
+   return {
+      { "╭", hl_name },
+      { "─", hl_name },
+      { "╮", hl_name },
+      { "│", hl_name },
+      { "╯", hl_name },
+      { "─", hl_name },
+      { "╰", hl_name },
+      { "│", hl_name },
+   }
+end
+
+local cmp_window = require "cmp.utils.window"
+
+cmp_window.info_ = cmp_window.info
+cmp_window.info = function(self)
+   local info = self:info_()
+   info.scrollable = false
+   return info
+end
+
+local options = {
+   window = {
+      completion = {
+         border = border "CmpBorder",
+         winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+      },
+      documentation = {
+         border = border "CmpDocBorder",
+      },
+   },
    snippet = {
       expand = function(args)
          require("luasnip").lsp_expand(args.body)
       end,
    },
    formatting = {
-      format = function(entry, vim_item)
-         local icons = require "plugins.configs.lspkind_icons"
+      format = function(_, vim_item)
+         local icons = require("ui.icons").lspkind
          vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
-
-         vim_item.menu = ({
-            nvim_lsp = "[LSP]",
-            nvim_lua = "[Lua]",
-            buffer = "[BUF]",
-         })[entry.source.name]
-
          return vim_item
       end,
    },
@@ -35,7 +61,7 @@ local default = {
       ["<C-e>"] = cmp.mapping.close(),
       ["<CR>"] = cmp.mapping.confirm {
          behavior = cmp.ConfirmBehavior.Replace,
-         select = true,
+         select = false,
       },
       ["<Tab>"] = cmp.mapping(function(fallback)
          if cmp.visible() then
@@ -45,7 +71,10 @@ local default = {
          else
             fallback()
          end
-      end, { "i", "s" }),
+      end, {
+         "i",
+         "s",
+      }),
       ["<S-Tab>"] = cmp.mapping(function(fallback)
          if cmp.visible() then
             cmp.select_prev_item()
@@ -54,23 +83,21 @@ local default = {
          else
             fallback()
          end
-      end, { "i", "s" }),
+      end, {
+         "i",
+         "s",
+      }),
    },
    sources = {
-      { name = "nvim_lsp" },
       { name = "luasnip" },
+      { name = "nvim_lsp" },
       { name = "buffer" },
       { name = "nvim_lua" },
       { name = "path" },
    },
 }
 
-local M = {}
-M.setup = function(override_flag)
-   if override_flag then
-      default = require("core.utils").tbl_override_req("nvim_cmp", default)
-   end
-   cmp.setup(default)
-end
+-- check for any override
+options = require("core.utils").load_override(options, "hrsh7th/nvim-cmp")
 
-return M
+cmp.setup(options)
