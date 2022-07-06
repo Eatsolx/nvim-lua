@@ -1,5 +1,9 @@
 -- 设置屏幕中间竖条
+-- 设置屏幕中间竖条
 -- vim.o.colorcolumn = "130"
+
+-- 不复制到系统剪切板
+vim.o.clipboard=""
 
 -- 禁用多光标警告
 vim.g.VM_show_warnings = 0
