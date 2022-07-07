@@ -1,5 +1,4 @@
 -- 设置屏幕中间竖条
--- 设置屏幕中间竖条
 -- vim.o.colorcolumn = "130"
 
 -- 不复制到系统剪切板
@@ -31,4 +30,10 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
   { "BufLeave" },
   { pattern = "*", command = ":silent !fcitx5-remote -c"}
+)
+
+-- 打开时自动定位到上次关闭位置
+vim.api.nvim_create_autocmd(
+  { "BufReadPost" },
+  {pattern = "*", command = [[if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]] }
 )
