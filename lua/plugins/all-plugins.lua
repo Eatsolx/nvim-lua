@@ -105,9 +105,12 @@ return {
 
   -- markdown预览
   {
-    'iamcco/markdown-preview.nvim',
-    run = "cd app && yarn install",
-    ft = "markdown",
+    "toppair/peek.nvim",
+    event = "VeryLazy",
+    build = "deno task --quiet build:fast",
+    config = function()
+        require "plugins.plugin-config.peek"
+    end,
   },
 
   -- 制作markdown表格

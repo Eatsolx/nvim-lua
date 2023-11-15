@@ -77,6 +77,7 @@ vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.o.pumheight = 10
 -- always show tabline
 vim.o.showtabline = 2
+
 -- 透明背景
 -- {
 vim.cmd('au ColorScheme * hi Normal guibg=NONE ctermbg=NONE')
@@ -92,5 +93,16 @@ vim.cmd('au ColorScheme * hi NvimTreeNormal guibg=NONE ctermbg=NONE')
 -- LSP
 vim.cmd('autocmd ColorScheme * highlight Pmenu guibg=NONE ctermbg=NONE')
 vim.cmd('autocmd ColorScheme * highlight PmenuSel guibg=NONE ctermbg=NONE')
-
 -- }
+
+-- 回到上次编辑位置
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufReadPost' }, {
+  callback = function()
+    local row, column = unpack(vim.api.nvim_buf_get_mark(0, '"'))
+    local buf_line_count = vim.api.nvim_buf_line_count(0)
+
+    if row >= 1 and row <= buf_line_count then
+      vim.api.nvim_win_set_cursor(0, { row, column })
+    end
+  end,
+})
