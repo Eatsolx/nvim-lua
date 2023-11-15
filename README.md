@@ -7,7 +7,7 @@
 ## 安装和初始化
 1. **备份原先的配置**
 2. 执行以下命令  
-   `git clone https://github.com/Eatsolx/nvim.git ~/.config/nvim`
+   `git clone https://github.com/Eatsolx/nvim-lua.git ~/.config/nvim`
 3. 输入`nvim`打开并使用`:Lazy sync`进行初始化
 
 ## 操作指南
