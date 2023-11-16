@@ -88,20 +88,20 @@ return {
   },
 
   -- 现代任务系统
-  {
-    'skywind3000/asynctasks.vim',
-    event = "VeryLazy",
-    -- requires = "skywind3000/asyncrun.vim",
-    -- cmd = {"asynctask", "asynctaskedit"},
-    enabled = false,
-  },
+  -- {
+  --   'skywind3000/asynctasks.vim',
+  --   event = "VeryLazy",
+  --   -- requires = "skywind3000/asyncrun.vim",
+  --   -- cmd = {"asynctask", "asynctaskedit"},
+  --   enabled = false,
+  -- },
 
   -- 函数列表
-  {
-    'liuchengxu/vista.vim',
-    event = "VeryLazy",
-    -- cmd = "vista",
-  },
+  -- {
+  --   'liuchengxu/vista.vim',
+  --   event = "VeryLazy",
+  --   -- cmd = "vista",
+  -- },
 
   -- markdown预览
   {
@@ -118,6 +118,7 @@ return {
     'dhruvasagar/vim-table-mode',
     ft = "markdown",
     -- cmd = "tablemodetoggle",
+    event = "VeryLazy",
   },
 
   -- tmux
@@ -181,6 +182,12 @@ return {
     --     -- config options go here
     -- })
     -- end,
+  },
+
+  -- 自动切换输入法
+  {
+    "eatsolx/autoim.nvim",
+    event = "InsertEnter",
   },
 
 }

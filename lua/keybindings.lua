@@ -35,8 +35,8 @@ map({"n", "v"}, "y", [["+y]], opt)
 -- map({"n", "v"}, "<leader>p", [["+p]], opt)
 
 -- JK移动所在行
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
+-- map("v", "J", ":m '>+1<CR>gv=gv")
+-- map("v", "K", ":m '<-2<CR>gv=gv")
 
 -- 批量替换
 map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
