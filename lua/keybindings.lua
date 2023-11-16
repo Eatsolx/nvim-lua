@@ -24,7 +24,7 @@ map("n", "sc", "<C-w>c")
 map("n", "so", "<C-w>o") -- close others
 
 -- nvimTree
-map("n", '<leader>t', ':NvimTreeToggle<CR>', opts)
+map("n", '<leader>tr', ':NvimTreeToggle<CR>', opts) 
 
 -- ranger
 map("n", "<leader>ef", "", {
@@ -52,18 +52,18 @@ map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 map("i", "<C-c>", "<Esc>")
 
 -- Tabs
-map("n", "<Tab>", ":tabnext<CR>", opts)
-map("n", "<S-Tab>", ":tabprevious<CR>", opts)
+map("n", "<Tab>", ":BufferLineCycleNext<CR>", opts)
+map("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
 map("n", "<leader>n", ":tabnew<CR>", opts)
 map("n", "<leader>cr", ":BufferLineCloseRight<CR>", opts)
 map("n", "<leader>cl", ":BufferLineCloseLeft<CR>", opts)
 map("n", "<leader>co", ":BufferLineCloseOthers<CR>", opts)
-map("n", "<leader>1", ":tabn 1<CR>", opts)
-map("n", "<leader>2", ":tabn 2<CR>", opts)
-map("n", "<leader>3", ":tabn 3<CR>", opts)
-map("n", "<leader>4", ":tabn 4<CR>", opts)
-map("n", "<leader>5", ":tabn 5<CR>", opts)
-map("n", "<leader>6", ":tabn 6<CR>", opts)
-map("n", "<leader>7", ":tabn 7<CR>", opts)
-map("n", "<leader>8", ":tabn 8<CR>", opts)
-map("n", "<leader>9", ":tabn 9<CR>", opts)
+-- map("n", "<leader>1", ":tabn 1<CR>", opts)
+-- map("n", "<leader>2", ":tabn 2<CR>", opts)
+-- map("n", "<leader>3", ":tabn 3<CR>", opts)
+-- map("n", "<leader>4", ":tabn 4<CR>", opts)
+-- map("n", "<leader>5", ":tabn 5<CR>", opts)
+-- map("n", "<leader>6", ":tabn 6<CR>", opts)
+-- map("n", "<leader>7", ":tabn 7<CR>", opts)
+-- map("n", "<leader>8", ":tabn 8<CR>", opts)
+-- map("n", "<leader>9", ":tabn 9<CR>", opts)

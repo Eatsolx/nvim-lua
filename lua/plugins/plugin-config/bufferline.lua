@@ -4,6 +4,10 @@ bufferline.setup {
     mode = "buffers", -- 设置为"tabs"只显示tab页
     -- 使用 nvim 内置lsp
     diagnostics = "nvim_lsp",
+    diagnostics_indicator = function(count, level, diagnostics_dict, context)
+        local icon = level:match("error") and " " or " "
+        return " " .. icon .. count
+    end,
     -- 左侧让出 nvim-tree 的位置
     offsets = {{
       filetype = "NvimTree",
@@ -11,7 +15,7 @@ bufferline.setup {
       highlight = "Directory",
       text_align = "left"
     }},
-    numbers = "ordinal", --"none" | "ordinal" | "buffer_id" | "both"
+    numbers = "buffer_id", --"none" | "ordinal" | "buffer_id" | "both"
     truacate_names = true, -- 是否截断标签名
     tab_size = 18,
     buffer_close_icon = '󰅖',
