@@ -189,4 +189,32 @@ return {
     event = "InsertEnter",
   },
 
+  -- Dashboard
+  {
+    'nvimdev/dashboard-nvim',
+    dependencies = { {'nvim-tree/nvim-web-devicons'}},
+    event = 'VimEnter',
+    config = function()
+      require "plugins.plugin-config.dashboard"
+    end,
+  },
+
+  -- Telescope
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    event = 'VeryLazy',
+    config = function ()
+      require "plugins.plugin-config.telescope"
+    end,
+  },
+
+  -- use ranger in neovim
+  {
+    "kelly-lin/ranger.nvim",
+    config = function()
+      require "plugins.plugin-config.ranger"
+    end,
+  }
+
 }
