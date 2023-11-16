@@ -35,11 +35,10 @@ return {
 
   -- 平滑滚动
   {
-    'karb94/neoscroll.nvim',
-    -- keys = {"∆", "˚", "<c-b>", "<c-f>","<c-y>", "<c-e>", "zt", "zz", "zb"},
+    'declancm/cinnamon.nvim',
     event = "VeryLazy",
     config = function()
-      require "plugins.plugin-config.neoscroll"
+      require "plugins.plugin-config.cinnamon"
     end,
   },
 
